@@ -2,25 +2,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const path = require("path");
-const app = express();
-app.set("port", 8080);
-//app.set("port", process.env.PORT || 8080);
-let http = require("http").Server(app);
-let io = require("socket.io")(http);
-app.get("/", (req, res) => {
-    res.sendFile(path.resolve("./dist/chat.html"));
-});
-io.on("connection", function (socket) {
-    console.log("a user connected " + socket.id);
-    socket.on("message", function (message) {
-        console.log(message);
-    });
-});
-//socket.on('chatMessage', function (chatMessage: ChatMessage) {
-//   socket.broadcast.emit('chatMessage', chatMessage)
-// });
-// });
-const server = http.listen(8080, function () {
-    console.log("Listening on localhost:8080");
-});
+const http = require("http");
+const socketIO = require("socket.io");
+const port = 8080;
+class Server {
+    constructor(port) {
+        this.port = port;
+        const app = express();
+        app.use("/static", express.static('./static/'));
+        app.get("/", (req, res) => {
+            res.sendFile(path.resolve("./dist/chat.html"));
+        });
+        this.server = new http.Server(app);
+        this.io = new socketIO.Server(this.server);
+        this.io.on('connection', (socket) => {
+            console.log('a user connected : ' + socket.id);
+            socket.on('disconnect', () => {
+                console.log('socket disconnected : ' + socket.id);
+            });
+            this.io.on("new_message", function (message) {
+                // console.log("message from Client"+message);
+                // // echo the message back down the
+                // // websocket connection
+                socket.emit("message", message);
+            });
+        });
+    }
+    Start() {
+        this.server.listen(this.port);
+        console.log(`Server listening on port ${this.port}.`);
+    }
+}
+new Server(port).Start();
 //# sourceMappingURL=server.js.map

@@ -1,11 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 //import { Socket } from "socket.io";
-const socket_io_client_1 = require("socket.io-client");
+//import { io } from "socket.io-client";
 class Client {
     constructor() {
-        const socket = socket_io_client_1.io("http://localhost:8080", { transports: ['websocket', 'polling', 'flashsocket'] });
-        socket.emit("message");
+        this.socket = io();
+        //const socket = io("http://localhost:8080",{transports :  ['websocket', 'polling', 'flashsocket'] });
+        //    socket.on("connect", function(){
+        //       console.log("connect");
+        //    })
+        //    socket.on("disconnect", function (message: any) {
+        //       console.log("disconnect " + message);
+        //   })
+        //    socket.emit("message")
     }
 }
 const client = new Client();

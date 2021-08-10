@@ -117,6 +117,11 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
+"@types/socket.io-client@^1.4.36":
+  "integrity" "sha512-ZJWjtFBeBy1kRSYpVbeGYTElf6BqPQUkXDlHHD4k/42byCN5Rh027f4yARHCink9sKAkbtGZXEAmR0ZCnc2/Ag=="
+  "resolved" "https://registry.npmjs.org/@types/socket.io-client/-/socket.io-client-1.4.36.tgz"
+  "version" "1.4.36"
+
 "@types/socket.io@^3.0.2":
   "integrity" "sha512-pu0sN9m5VjCxBZVK8hW37ZcMe8rjn4HHggBN5CbaRTvFwv5jOmuIRZEuddsBPa9Th0ts0SIo3Niukq+95cMBbQ=="
   "resolved" "https://registry.npmjs.org/@types/socket.io/-/socket.io-3.0.2.tgz"
