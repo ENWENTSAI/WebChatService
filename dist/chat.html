@@ -28,18 +28,150 @@ body{
     place-items: center;
 
 }
+#chat-container{
+    display: grid;
+    grid:
+        'title chat-title' 71px
+        'conversation-list chat-message-list' 1fr
+        'new-message-container chat-form' 78px
+        /275px 1fr;
+    min-width: 800px;
+    max-width: 1000px;
+    min-width: 800px;
+    height: 95vh;
+    background: white;
+    border-radius:10px ;
+}
+#title,
+#conversation-list,
+#new-message-container{
+    background: #0048aa;
+}
+#title{
+    display: grid;
+    align-items: center;
+    padding: 0 20px;
+    grid-area: title;
+    border-radius: 10px 0 0 0;
+    box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.75);
+    z-index: 1;
+    color:white;
+    font-size: 25px;
+}
+
+
+#conversation-list{
+    grid-area: conversation-list;
+}
+.room-name{
+    color: #ddd;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #002c88;
+    padding: 20px 20px 20px 15px;
+
+}
+.room-name.active
+.room-name:hover{
+    background: #002c88;
+
+}
+.room-name:hover{
+    cursor: pointer;
+}
+
+#new-message-container{
+    grid-area:new-message-container ;
+    border-radius: 0 0 0 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+#chat-title,
+#chat-form{
+    background: white;
+}
+#chat-title{
+    grid-area: chat-title;
+    display: grid;
+    grid: 36px / 1fr 36px;
+    align-content: center;
+    align-items: center;
+    padding: 0 20px;
+    color: #0048aa;
+    font-weight: bold;
+    font-size: 2.0rem;
+    border-radius: 0 10px 0 0;
+    box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.75);
+
+}
+#chat-message-list{
+    grid-area: chat-message-list;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#chat-form{
+    display: grid;
+    grid: 51px / 400px 1fr;
+    grid-area: chat-form;
+    grid-gap: 10px;
+    border-radius: 0 0 10px 0;
+    align-items: center;
+    align-content: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    padding-left: 22px;
+    padding-right: 22px;
+}
+#chat-form input{
+    outline: none;
+    padding: 15px;
+    border: 2px solid #ddd;
+    color: #330;
+    border-radius: 6px;
+    font-size: 1.4rem;
+}
+#chat-form button{
+    outline: none;
+    padding: 15px;
+    border: 2px solid #ddd;
+    color: #330;
+    border-radius: 6px;
+    font-size: 1.4rem;
+}
+
+
+
+
     </style>
   </head>
   <body>
     <div id="chat-container">
-        <div id="search-container">
+        <div id="title">
             <span>Web Chat Service</span>
         </div>
         <div id="conversation-list">
-            <div class="room active">
+            <div class="room-name">
+            
+                    Room A
+        
             </div>
+            <div class="room-name">
+            
+                Room B
+    
+        </div>
+        <div class="room-name">
+            
+            Room C
+
+    </div>
+    <div class="room-name">
+            
+        Room D
+
+</div>
+
         </div>
         <div id="new-message-container">
+            <a href="#">+</a>
 
         </div>
         <div id="chat-title">
@@ -58,7 +190,7 @@ body{
         </div>
         <div id="chat-form">
             <input type="message" placeholder="type a message here"/>
-            <button onClick="sendMsg()">Send</button>            
+            <button onClick="sendMsg()">Send</button>           
         </div>
     </div>
 

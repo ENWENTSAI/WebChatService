@@ -2,9 +2,10 @@
 import { io } from "socket.io-client";
 class Client{
    constructor(){
+     
     
-     console.log("try ");
      const socket = io();
+     socket.emit("message")
    }
 }
 
