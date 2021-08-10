@@ -1,0 +1,77 @@
+<!-- ./client/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat Web Application</title>
+    <style>
+
+    *{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body{
+    height: 100%;
+}
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right,#57c1ed 0%, #246fa8 100%);
+    font-size: 10px;
+}
+body{
+    display: grid;
+    place-items: center;
+
+}
+    </style>
+  </head>
+  <body>
+    <div id="chat-container">
+        <div id="search-container">
+            <span>Web Chat Service</span>
+        </div>
+        <div id="conversation-list">
+            <div class="room active">
+            </div>
+        </div>
+        <div id="new-message-container">
+
+        </div>
+        <div id="chat-title">
+            <span>room name</span>
+        </div>
+        <div id="chat-message-list">
+            <div class="message-row you-message">
+                <div class="message-text">hello</div>
+                <div class= "message-time">Apr 1</div>
+            </div>
+            <div class="message-row other-message">
+                <div class="message-text">how are you</div>
+                <div class= "message-time">Apr 1</div>
+            </div>
+
+        </div>
+        <div id="chat-form">
+            <input type="message" placeholder="type a message here"/>
+            <button onClick="sendMsg()">Send</button>            
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+        <script> 
+        //var socket = io();
+        //const socket = io("http://localhost:4000");
+        const socket = io("http://localhost:4000",{transports :  ['websocket', 'polling', 'flashsocket'] });
+        // listen for new messages
+        function sendMsg() {
+        socket.emit("message", "HELLO WORLD");
+      }
+        </script>
+    <script src="client.js"></script>
+  </body>
+</html>
