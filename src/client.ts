@@ -2,9 +2,8 @@
 import { io } from "socket.io-client";
 class Client{
    constructor(){
-     
-    
-     const socket = io();
+    const socket = io("http://localhost:8080",{transports :  ['websocket', 'polling', 'flashsocket'] });
+
      socket.emit("message")
    }
 }

@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const socket_io_client_1 = require("socket.io-client");
 class Client {
     constructor() {
-        const socket = socket_io_client_1.io();
+        const socket = socket_io_client_1.io("http://localhost:8080", { transports: ['websocket', 'polling', 'flashsocket'] });
         socket.emit("message");
     }
 }
