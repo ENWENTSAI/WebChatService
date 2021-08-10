@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Welcome!</title>
+    <style>
 
     *{
         margin:0;
@@ -19,3 +27,91 @@
         place-items: center;
     
     }
+
+    .join-container {
+        max-width: 500px;
+        margin: 80px auto;
+        color: #0048aa;
+
+    }
+    
+    .join-header {
+        text-align: center;
+        padding: 20px;
+        background: white;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    
+    .join-main {
+        padding: 30px 40px;
+        background: white;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    
+    .join-main p {
+        margin-bottom: 20px;
+    }
+    
+    .join-main .form-control {
+        margin-bottom: 20px;
+    }
+    
+    .join-main label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .join-main input[type='text'] {
+        font-size: 16px;
+        padding: 5px;
+        height: 40px;
+        width: 100%;
+    }
+    
+    .join-main select {
+        font-size: 16px;
+        padding: 5px;
+        height: 40px;
+        width: 100%;
+    }
+    
+    .join-main .btn {
+        margin-top: 20px;
+        width: 100%;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="join-container">
+        <header class="join-header">
+            <h1><i class="fas fa-smile"></i> Welcome</h1>
+        </header>
+        <main class="join-main">
+            <form action="chat.html">
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="Enter username..."
+                        required
+                    />
+                </div>
+                <div class="form-control">
+                    <label for="room">Room</label>
+                    <select name="room" id="room">
+                        <option value="RoomA">Room A</option>
+                        <option value="RoomB">Room B</option>
+                        <option value="RoomC">Room C</option>
+                        <option value="RoomD">Room D</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Join Chat</button>
+            </form>
+        </main>
+    </div>
+  </body>
+</html>

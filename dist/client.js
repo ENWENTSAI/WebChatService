@@ -4,8 +4,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const socket_io_client_1 = require("socket.io-client");
 class Client {
     constructor() {
-        console.log("try ");
         const socket = socket_io_client_1.io();
+        socket.emit("message");
     }
 }
 const client = new Client();

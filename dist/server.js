@@ -11,16 +11,14 @@ app.get("/", (req, res) => {
 });
 io.on("connection", function (socket) {
     console.log("a user connected " + socket.id);
-    socket.on("new_message", function (message) {
-        console.log("message from Client" + message);
-        // echo the message back down the
-        // websocket connection
-        socket.emit("message", message);
+    socket.on("message", function (message) {
+        console.log(message);
     });
-    //socket.on('chatMessage', function (chatMessage: ChatMessage) {
-    //   socket.broadcast.emit('chatMessage', chatMessage)
-    //});
 });
+//socket.on('chatMessage', function (chatMessage: ChatMessage) {
+//   socket.broadcast.emit('chatMessage', chatMessage)
+// });
+// });
 const server = http.listen(8080, function () {
     console.log("listening on *:8080");
 });
