@@ -1,4 +1,3 @@
-<!-- ./client/index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -179,22 +178,14 @@ body{
         </div>
         <div id="chat-message-list">
 
+        </div>
         <div id="chat-form">
-            <input type="message" placeholder="Type message here"/>
+            <input type="send_message" placeholder="Type message here"/>
             <button onClick="sendMsg()">Send</button>           
         </div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-        <script> 
-        //var socket = io();
-        const socket = io("http://localhost:8080",{transports :  ['websocket', 'polling', 'flashsocket'] });
-        // listen for new messages
-
-        function sendMsg() {
-        socket.emit("message", "HELLO WORLD");
-        }
-        </script>
-    <script src="client.js"></script>
+    <script src="client/client.js"></script>
   </body>
 </html>
