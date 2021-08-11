@@ -15,6 +15,12 @@ class Server{
     //app.use(express.static(path.join(__dirname, '../dist/client')))
 
     app.use(express.static('dist'));
+    app.use(
+      '/jquery',
+      express.static(
+          path.join(__dirname, '../../node_modules/jquery/dist')
+      )
+  )
     // app.get("/", (req: any, res: any) => {
     //   res.sendFile(path.resolve("./dist/chat.html"));
       
@@ -25,28 +31,18 @@ class Server{
     this.io.on('connection', (socket: socketIO.Socket) => {
       console.log('a user connected : ' + socket.id)
       
-    //   socket.emit("message","hello " + socket.id);
-      
-    //   socket.broadcast.emit(
-    //     'message',
-    //     'Everybody, say hello to ' + socket.id
-    // )
-      
       socket.on('disconnect', () => {
           console.log('socket disconnected : ' + socket.id);
       });
 
-    //   socket.on('message', function (message: any) {
-    //     console.log(message)
-    // });
-  //   socket.on('chatMessage', function (chatMessage: ChatMessage) {
-  //     socket.broadcast.emit('chatMessage', chatMessage)
-  // })
+      socket.on('chatMessage', function (chatMessage: ChatMessage) {
+        console.log('chatMessage', chatMessage);
+        socket.broadcast.emit('chatMessage', chatMessage)
+    })
 
   })
 
   }
-  
   public Start() {
     this.server.listen(this.port)
     console.log(`Server listening on port ${this.port}.`)

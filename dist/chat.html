@@ -136,7 +136,37 @@ body{
     font-size: 1.4rem;
 }
 
+            .messages {
+                padding-left: 0;
+                overflow: hidden;
+                height: 340px;
+                margin-bottom: 40px;
+            }
 
+            .messages li {
+                list-style-type: none;
+                margin-bottom: 30px;
+                padding: 6px 6px 6px 6px;
+                display: block;
+            }
+
+            .otherMessage {
+                background: #ffcda3;
+                border: solid 1px gray;
+                margin: 0px 5px 5px 0px;
+                float: right;
+                padding: 0px 6px 0px 6px;
+                border-radius: 10px 10px 0 10px;
+            }
+
+            .myMessage {
+                background: #1bffbb;
+                border: solid 1px gray;
+                margin: 0px 5px 5px 5px;
+                float: left;
+                padding: 0px 6px 0px 6px;
+                border-radius: 10px 10px 10px 0;
+            }
 
 
     </style>
@@ -170,21 +200,21 @@ body{
 
         </div>
         <div id="new-message-container">
-            <a href="#">+</a>
 
         </div>
         <div id="chat-title">
             <span>room name</span>
         </div>
         <div id="chat-message-list">
-
+            <ol id="messages" class="messages"></ol>
         </div>
         <div id="chat-form">
-            <input type="send_message" placeholder="Type message here"/>
-            <button onClick="sendMsg()">Send</button>           
+            <input type="send_message" id="messageText" placeholder="Type message here"/>
+         
+            <input type = "button" onclick = "client.sendMessage()" value = "Send">          
         </div>
     </div>
-
+    <script src="jquery/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="client/client.js"></script>
   </body>

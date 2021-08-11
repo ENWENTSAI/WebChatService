@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const path = require("path");
 const http = require("http");
 const socketIO = require("socket.io");
 const port = 4000;
@@ -10,6 +11,7 @@ class Server {
         const app = express();
         //app.use(express.static(path.join(__dirname, '../dist/client')))
         app.use(express.static('dist'));
+        app.use('/jquery', express.static(path.join(__dirname, '../../node_modules/jquery/dist')));
         // app.get("/", (req: any, res: any) => {
         //   res.sendFile(path.resolve("./dist/chat.html"));
         // }); //
@@ -17,20 +19,13 @@ class Server {
         this.io = new socketIO.Server(this.server);
         this.io.on('connection', (socket) => {
             console.log('a user connected : ' + socket.id);
-            //   socket.emit("message","hello " + socket.id);
-            //   socket.broadcast.emit(
-            //     'message',
-            //     'Everybody, say hello to ' + socket.id
-            // )
             socket.on('disconnect', () => {
                 console.log('socket disconnected : ' + socket.id);
             });
-            //   socket.on('message', function (message: any) {
-            //     console.log(message)
-            // });
-            //   socket.on('chatMessage', function (chatMessage: ChatMessage) {
-            //     socket.broadcast.emit('chatMessage', chatMessage)
-            // })
+            socket.on('chatMessage', function (chatMessage) {
+                console.log('chatMessage', chatMessage);
+                socket.broadcast.emit('chatMessage', chatMessage);
+            });
         });
     }
     Start() {
