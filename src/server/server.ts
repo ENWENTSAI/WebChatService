@@ -15,12 +15,7 @@ class Server{
     //app.use(express.static(path.join(__dirname, '../dist/client')))
 
     app.use(express.static('dist'));
-    app.use(
-      '/jquery',
-      express.static(
-          path.join(__dirname, '../../node_modules/jquery/dist')
-      )
-  )
+    app.use('/jquery',express.static(path.join(__dirname, '../../node_modules/jquery/dist')));
     // app.get("/", (req: any, res: any) => {
     //   res.sendFile(path.resolve("./dist/chat.html"));
       
@@ -30,9 +25,15 @@ class Server{
     this.io = new socketIO.Server(this.server);
     this.io.on('connection', (socket: socketIO.Socket) => {
       console.log('a user connected : ' + socket.id)
+
+      //
+      socket.broadcast.emit(
+        'message',
+        socket.id + 'Joined the Chat Room'
+    )
       
       socket.on('disconnect', () => {
-          console.log('socket disconnected : ' + socket.id);
+          console.log( socket.id + 'has left') ;
       });
 
       socket.on('chatMessage', function (chatMessage: ChatMessage) {

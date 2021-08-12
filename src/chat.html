@@ -64,9 +64,18 @@ body{
 }
 .room-name{
     color: #ddd;
-    font-size: 2rem;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #002c88;
     padding: 20px 20px 20px 15px;
 
+}
+.room-name.active
+.room-name:hover{
+    background: #002c88;
+
+}
+.room-name:hover{
+    cursor: pointer;
 }
 
 #new-message-container{
@@ -91,12 +100,15 @@ body{
     border-radius: 0 10px 0 0;
     box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.75);
 
+
+
+    
 }
 #chat-message-list{
     grid-area: chat-message-list;
     display: flex;
-    flex-direction: column;
-    padding: 5px 20px;
+    flex-direction: column-reverse;
+    padding: 0 20px;
     overflow-y: scroll;
 }
 .message-content{
@@ -118,12 +130,6 @@ body{
     grid-template-columns: 48px 1fr;
     grid-column-gap: 15px;
 }
-.name{
-    font-size: 20px;
-    align-content: center;
-    padding: 5px 20px;
-
-}
 
 .message-row{
     display: grid;
@@ -139,7 +145,6 @@ body{
 .message-time{
     font-size: 1.3rem;
     color: #777;
-
 }
 .you-message .message-text{
     background: #0048aa;
@@ -158,7 +163,7 @@ body{
 
 #chat-form{
     display: grid;
-    grid: 40px / 400px 1fr;
+    grid: 51px / 400px 1fr;
     grid-area: chat-form;
     grid-gap: 10px;
     border-radius: 0 0 10px 0;
@@ -170,7 +175,7 @@ body{
 }
 #chat-form input{
     outline: none;
-    padding: 10px;
+    padding: 15px;
     border: 2px solid #ddd;
     color: #330;
     border-radius: 6px;
@@ -178,12 +183,46 @@ body{
 }
 #chat-form button{
     outline: none;
-    padding: 10px;
+    padding: 15px;
     border: 2px solid #ddd;
     color: #330;
     border-radius: 6px;
     font-size: 1.4rem;
 }
+
+            .messages {
+                padding-left: 0;
+                overflow: hidden;
+                height: 340px;
+                margin-bottom: 40px;
+            }
+
+            .messages li {
+                list-style-type: none;
+                margin-bottom: 30px;
+                padding: 6px 6px 6px 6px;
+                display: block;
+            }
+
+            .myMessage {
+                background: #ffcda3;
+                border: solid 1px gray;
+                margin: 0px 5px 5px 0px;
+                float: right;
+                padding: 0px 6px 0px 6px;
+                border-radius: 10px 10px 0 10px;
+            }
+
+            .otherMessage {
+                background: #1bffbb;
+                border: solid 1px gray;
+                margin: 0px 5px 5px 5px;
+                float: left;
+                padding: 0px 6px 0px 6px;
+                border-radius: 10px 10px 10px 0;
+            }
+
+
     </style>
   </head>
   <body>
@@ -193,35 +232,51 @@ body{
         </div>
         <div id="conversation-list">
             <div class="room-name">
-                    <div class = "username">Alison</div>
-                    <div class = "username">Andy</div>
-                    <div class = "username">Randy</div>
-                    <div class = "username">Steven</div>
+            
+                    Room A
+        
             </div>
+            <div class="room-name">
+            
+                Room B
+    
+        </div>
+        <div class="room-name">
+            
+            Room C
+
+    </div>
+    <div class="room-name">
+            
+        Room D
+
+</div>
+
         </div>
         <div id="new-message-container">
+
         </div>
         <div id="chat-title">
-            <span>RoomA</span>
+            <span>room name</span>
             <input type = "button" onclick = "leave-btn" value = "Leave">  
+            
         </div>
-        <div id="chat-message-list">
-        </div>
+        <ol id="chat-message-list">
+        </ol>
         <div id="chat-form">
             <input type="send_message" id="messageText" placeholder="Type message here"/>
+         
             <input type = "button" onclick = "client.sendMessage()" value = "Send">          
         </div>
     </div>
     <script>
-        // function leaveRoom(){
-        // document.getElementById('leave-btn').addEventListener('click', () => {
-        // const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
-        // if (leaveRoom) {
-        // window.location = 'index.html';
-        // } else {
-        // }
-        // });
-        // }
+        document.getElementById('leave-btn').addEventListener('click', () => {
+        const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
+        if (leaveRoom) {
+         window.location = '../index.html';
+        } else {
+        }
+            });
     </script>
     <script src="jquery/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>

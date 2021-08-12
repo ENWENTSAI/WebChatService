@@ -1,4 +1,3 @@
-
 class Client{
    private socket:SocketIOClient.Socket;
    constructor(){
@@ -13,31 +12,15 @@ class Client{
          //location.reload();
      })
      this.socket.on('chatMessage', (chatMessage: ChatMessage) => {
-        $('#messages').append(
-            "<li><span class='float-right'><span class='circle'>" +
-                chatMessage.from +
-                "</span></span><div class='otherMessage'>" +
-                chatMessage.message +
-                '</div></li>'
+        $('#chat-message-list').append( // message
+            "<div id='message-row other-message' class='message-row other-message'>"+
+            "<div class='message-content'>" + 
+            "<div class='name'>" + chatMessage.from + "</div>" + 
+            "<div class='message-text'>" + chatMessage.message+"</div>"+
+            "<div class='message-time'>"+"Apr 16" +"</div>"+" </div> "+" </div> "
         )
-        this.scrollChatWindow()
     })
 
-    
-}
-private scrollChatWindow = () => {
-    $('#messages').animate(
-        {
-            scrollTop: $('#messages li:last-child').position().top,
-        },
-        500
-    )
-    setTimeout(() => {
-        let messagesLength = $('#messages li')
-        if (messagesLength.length > 10) {
-            messagesLength.eq(0).remove()
-        }
-    }, 500)
 }
 
 public sendMessage() {
@@ -45,21 +28,26 @@ public sendMessage() {
     if (messageText.toString().length > 0) {
         this.socket.emit('chatMessage', <ChatMessage>{
             message: messageText,
-            from: 'AB',
+            from: "Default",
+            
         })
-
-        $('#messages').append(
-            "<li><span class='float-left'><span class='circle'>AB</span></span><div class='myMessage'>" +
-                messageText +
-                '</div></li>'
+        $('#chat-message-list').append(
+            "<div id='message-row you-message' class='message-row you-message'>"+
+            "<div class='message-content'>" + 
+            "<div class='message-text'>" + messageText+"</div>"+
+            "<div class='message-time'>"+"Apr 16" +"</div>"+" </div> "+" </div> "
         )
-        this.scrollChatWindow()
-
         $('#messageText').val('')
     }
 }
+//const chatform = document.getElementById('')
 
 
+// private parseURL = (text:string) =>{
+//     const urls = getUrls(text){
+        
+//     }
+// }
 }
 
 const client = new Client();

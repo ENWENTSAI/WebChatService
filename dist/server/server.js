@@ -19,8 +19,10 @@ class Server {
         this.io = new socketIO.Server(this.server);
         this.io.on('connection', (socket) => {
             console.log('a user connected : ' + socket.id);
+            //
+            socket.broadcast.emit('message', socket.id + 'Joined the Chat Room');
             socket.on('disconnect', () => {
-                console.log('socket disconnected : ' + socket.id);
+                console.log(socket.id + 'has left');
             });
             socket.on('chatMessage', function (chatMessage) {
                 console.log('chatMessage', chatMessage);
