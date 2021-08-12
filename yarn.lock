@@ -566,7 +566,7 @@
   "resolved" "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-2.0.0.tgz"
   "version" "2.0.0"
 
-"date-fns@^2.16.1":
+"date-fns@^2.16.1", "date-fns@^2.23.0":
   "integrity" "sha512-5ycpauovVyAk0kXNZz6ZoB9AYMZB4DObse7P3BPWmyEjXNORTI8EJ6X0uaSAq4sCHzM1uajzrkr6HnsLQpxGXA=="
   "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.23.0.tgz"
   "version" "2.23.0"

@@ -1,6 +1,7 @@
 class Client {
     constructor() {
         this.socket = io();
+        const date = new Date();
         this.socket.on('connect', function () {
             console.log('connect');
         });
@@ -14,10 +15,11 @@ class Client {
                 "<div class='message-content'>" +
                 "<div class='name'>" + chatMessage.from + "</div>" +
                 "<div class='message-text'>" + chatMessage.message + "</div>" +
-                "<div class='message-time'>" + "Apr 16" + "</div>" + " </div> " + " </div> ");
+                "<div class='message-time'>" + `${date.getHours()}:${date.getMinutes()}` + "</div>" + " </div> " + " </div> ");
         });
     }
     sendMessage() {
+        const date = new Date();
         let messageText = $('#messageText').val();
         if (messageText.toString().length > 0) {
             this.socket.emit('chatMessage', {
@@ -27,7 +29,7 @@ class Client {
             $('#chat-message-list').append("<div id='message-row you-message' class='message-row you-message'>" +
                 "<div class='message-content'>" +
                 "<div class='message-text'>" + messageText + "</div>" +
-                "<div class='message-time'>" + "Apr 16" + "</div>" + " </div> " + " </div> ");
+                "<div class='message-time'>" + `${date.getHours()}:${date.getMinutes()}` + "</div>" + " </div> " + " </div> ");
             $('#messageText').val('');
         }
     }
