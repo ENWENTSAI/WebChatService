@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="jquery/jquery.min.js"></script>
     <title>Welcome!</title>
     <style>
-
     *{
         margin:0;
         padding: 0;
@@ -86,10 +86,10 @@
   <body>
     <div class="join-container">
         <header class="join-header">
-            <h1><i class="title"></i> Welcome</h1>
+            <h1><i class="welcome"></i> Welcome</h1>
         </header>
         <main class="join-main">
-            <form action="chat.html">
+            <form action="chat.html" method="GET">
                 <div class="form-control">
                     <label for="username">Username</label>
                     <input
@@ -103,15 +103,24 @@
                 <div class="form-control">
                     <label for="room">Room</label>
                     <select name="room" id="room">
-                        <option value="RoomA">Room A</option>
-                        <option value="RoomB">Room B</option>
-                        <option value="RoomC">Room C</option>
-                        <option value="RoomD">Room D</option>
+                        <option value="Room A">Room A</option>
+                        <option value="Room B">Room B</option>
+                        <option value="Room C">Room C</option>
+                        <option value="Room D">Room D</option>
                     </select>
                 </div>
-                <button type="submit" class="btn">Join Chat</button>
-            </form>
+                <button type="submit" onclick="join()" class="btn">Join Chat</button>
+            </form>  
         </main>
     </div>
+    <script>
+    //我從這裡取值 然後我要在client讀 
+    function join(){
+    const username = $('#username').val()
+    const room = $('#room').val()  
+    localStorage.setItem("username", username);
+    localStorage.setItem("room", room);
+}
+    </script>
   </body>
 </html>

@@ -21,6 +21,13 @@ class Server {
             console.log('a user connected : ' + socket.id);
             //
             socket.broadcast.emit('message', socket.id + 'Joined the Chat Room');
+            // Broadcast when a user connects
+            // socket.broadcast
+            // .to(user.room)
+            // .emit(
+            //   'message',
+            //   formatMessage(botName, `${user.username} has joined the chat`)
+            // );
             socket.on('disconnect', () => {
                 console.log(socket.id + 'has left');
             });

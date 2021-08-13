@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="jquery/jquery.min.js"></script>
     <title>Chat Web Application</title>
     <style>
 
@@ -81,7 +82,7 @@ body{
 #chat-title{
     grid-area: chat-title;
     display: grid;
-    grid: 36px / 1fr 36px;
+    grid: 36px / 1fr 50px;
     align-content: center;
     align-items: center;
     padding: 0 20px;
@@ -92,6 +93,18 @@ body{
     box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.75);
 
 }
+
+.leaveroom{   
+    outline: none;
+    padding: 10px;
+    border: 2px solid #ddd;
+    color: #330;
+    border-radius: 6px;
+    font-size: 1.4rem; 
+
+}
+
+
 #chat-message-list{
     grid-area: chat-message-list;
     display: flex;
@@ -190,18 +203,15 @@ body{
             <span>Web Chat Service</span>
         </div>
         <div id="conversation-list">
-            <div class="room-name">
-                    <div class = "username">Alison</div>
-                    <div class = "username">Andy</div>
-                    <div class = "username">Randy</div>
-                    <div class = "username">Steven</div>
+            <div class="room-name" id="room-name">
+                    <div class = "friend"><span id="data"></span></div>
             </div>
         </div>
         <div id="new-message-container">
         </div>
         <div id="chat-title">
-            <span>RoomA</span>
-            <input type = "button" onclick = "leave-btn" value = "Leave">  
+            <span id="roomtitle"></span>
+            <input type = "button" id = "leaveroom" onclick = "leaveRoom()" value = "Leave">  
         </div>
         <div id="chat-message-list">
         </div>
@@ -211,18 +221,20 @@ body{
         </div>
     </div>
     <script>
-        // function leaveRoom(){
-        // document.getElementById('leave-btn').addEventListener('click', () => {
-        // const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
-        // if (leaveRoom) {
-        // window.location = 'index.html';
-        // } else {
-        // }
-        // });
-        // }
+        function leaveRoom(){
+        document.getElementById('leaveroom').addEventListener('click', () => {
+        const leaveRoom = confirm('you want to leave this chat room?');
+        if (leaveRoom) {
+        this.window.location = 'index.html';
+        } else {
+        }
+        });}
+        
+        document.getElementById("data").innerHTML=localStorage.getItem("username");
+        document.getElementById("roomtitle").innerHTML=localStorage.getItem("room");
     </script>
-    <script src="jquery/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="client/client.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js" integrity="sha512-f0AM6x08kthGzMyDHZjBgjBCPp8V8ovlHYCI1jMkhViTeX3MykGCf/DnN1khWss/6d1105eAG4TniSKy6UhZrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+<script src="/socket.io/socket.io.js"></script>
+<script src="client/client.js"></script>
   </body>
 </html>

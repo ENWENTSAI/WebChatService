@@ -1,8 +1,7 @@
-//const username = 
+//var username = $('#username').val()
 type ChatMessage = {
     message: string
     from: string
-    time : Date
 }
 
 
