@@ -6,7 +6,8 @@ class Client{
    constructor(){
     this.socket = io();
     const date = new Date();
-    console.log(localStorage.getItem("username"));
+
+    //console.log(localStorage.getItem("username"));
     // Get username and room from URL
     // const { username, room } = qs.parse(location.search, {
     // ignoreQueryPrefix: true,
@@ -37,11 +38,14 @@ class Client{
 //send messages
 public sendMessage() {
     const date = new Date();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const username = urlParams.get('username')
     let messageText = $('#messageText').val()
     if (messageText.toString().length > 0) {
         this.socket.emit('chatMessage', <ChatMessage>{
             message: messageText,
-            from: localStorage.getItem("username"),
+            from: username,
         })
         $('#chat-message-list').append(
             "<div id='message-row you-message' class='message-row you-message'>"+
