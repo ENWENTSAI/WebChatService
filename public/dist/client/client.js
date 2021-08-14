@@ -1,17 +1,21 @@
-//import * as qs from 'qs'
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const username = urlParams.get('username');
 class Client {
     constructor() {
         this.socket = io();
         const date = new Date();
-        //console.log(localStorage.getItem("username"));
         // Get username and room from URL
         // const { username, room } = qs.parse(location.search, {
         // ignoreQueryPrefix: true,
         //  });
-        //console.log(username);
-        //console.log(inputValue);
         this.socket.on('connect', function () {
             console.log('connect');
+            if (username != null) {
+                $('#room-user').append("<div class ='friend'>" +
+                    username +
+                    "</div>");
+            }
         });
         this.socket.on('disconnect', function (message) {
             console.log('disconnect ' + message);
@@ -30,9 +34,9 @@ class Client {
     //send messages
     sendMessage() {
         const date = new Date();
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const username = urlParams.get('username');
+        // const queryString = window.location.search;
+        // const urlParams = new URLSearchParams(queryString);
+        // const username = urlParams.get('username')
         let messageText = $('#messageText').val();
         if (messageText.toString().length > 0) {
             this.socket.emit('chatMessage', {
@@ -45,11 +49,6 @@ class Client {
                 "<div class='message-time'>" + `${date.getHours()}:${date.getMinutes()}` + "</div>" + " </div> " + " </div> ");
             $('#messageText').val('');
         }
-    }
-    join() {
-        let username = $('#username').val();
-        let room = $('#room').val();
-        console.log(username + " " + room);
     }
 }
 const client = new Client();

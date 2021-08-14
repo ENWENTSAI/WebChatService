@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="jquery/jquery.min.js"></script>
-    <title>Chat Web Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    <title>Chat Web Application</title>
     <style>
 
     *{
@@ -63,7 +62,7 @@ body{
 #conversation-list{
     grid-area: conversation-list;
 }
-.room-name{
+.room-user{
     color: #ddd;
     font-size: 2rem;
     padding: 20px 20px 20px 15px;
@@ -203,8 +202,7 @@ body{
             <span>Web Chat Service</span>
         </div>
         <div id="conversation-list">
-            <div class="room-name" id="room-name">
-                    <div class = "friend"><span id="data"></span></div>
+            <div class="room-user" id="room-user">
             </div>
         </div>
         <div id="new-message-container">
@@ -229,12 +227,10 @@ body{
         } else {
         }
         });}
-        
-        document.getElementById("data").innerHTML=localStorage.getItem("username");
-        document.getElementById("roomtitle").innerHTML=localStorage.getItem("room");
+
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js" integrity="sha512-f0AM6x08kthGzMyDHZjBgjBCPp8V8ovlHYCI1jMkhViTeX3MykGCf/DnN1khWss/6d1105eAG4TniSKy6UhZrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
 <script src="/socket.io/socket.io.js"></script>
-<script src="client/client.js"></script>
+<script src="/dist/client/client.js"></script>
   </body>
 </html>
