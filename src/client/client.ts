@@ -1,22 +1,31 @@
-//import * as qs from 'qs'
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const username = urlParams.get('username')
 
 class Client{
+    
 
    private socket:SocketIOClient.Socket;
    constructor(){
     this.socket = io();
     const date = new Date();
 
-    //console.log(localStorage.getItem("username"));
     // Get username and room from URL
     // const { username, room } = qs.parse(location.search, {
     // ignoreQueryPrefix: true,
     //  });
-
-    //console.log(username);
-    //console.log(inputValue);
     this.socket.on('connect', function () {
          console.log('connect')
+         if(username!= null){
+            $('#room-user').append(
+                "<div class ='friend'>"+
+                username + 
+                "</div>"
+            )
+        }
+        
+
+
      })
 
     this.socket.on('disconnect', function (message: any) {
@@ -35,12 +44,13 @@ class Client{
     })
 
 }
+
 //send messages
 public sendMessage() {
     const date = new Date();
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const username = urlParams.get('username')
+    // const queryString = window.location.search;
+    // const urlParams = new URLSearchParams(queryString);
+    // const username = urlParams.get('username')
     let messageText = $('#messageText').val()
     if (messageText.toString().length > 0) {
         this.socket.emit('chatMessage', <ChatMessage>{
@@ -55,12 +65,40 @@ public sendMessage() {
         )
         $('#messageText').val('')
     }
+
 }
-public join(){
-    let username = $('#username').val()
-    let room = $('#room').val()  
-    console.log(username + " " +room);
-    }
+// public userList(){
+//     if(username!= null){
+//         $('#room-user').append(
+//             "<div class ='friend'>"+
+//             username + 
+//             "</div>"
+//         )
+//     }
+// }
+
+
+
+
+// // Add room name to DOM
+// function outputRoomName(room) {
+//     roomName.innerText = room;
+//   }
+  
+//   // Add users to DOM
+//   function outputUsers(users) {
+//     userList.innerHTML = '';
+//     users.forEach((user) => {
+//       const li = document.createElement('li');
+//       li.innerText = user.username;
+//       userList.appendChild(li);
+//     });
+//   }
+
+
+
+
+
 }
 
 const client = new Client();
