@@ -21,26 +21,37 @@ class Server{
       
       console.log('a user connected : ' + socket.id)
 
-      // receiving the message from client side for joining the target room
+      // listening the socket for getting the room & username from client side
       socket.on('joinRoom', function (room: string,username:string) {
         
+        // use join function to join the specific room
+
         socket.join(room);
 
-        //broadcast the message who joined the specific room 
+        //broadcast the message who joined this specific room 
         socket.broadcast.to(room).emit('message',username + " has joined the room - " + room);
 
-
-        //
+        //sending chat message to who are in the same room. 
         socket.on('chatMessage', function (chatMessage: ChatMessage) {
           console.log('chatMessage', chatMessage);
           socket.broadcast.to(room).emit('chatMessage', chatMessage)
       });
 
     });
-      
+    socket.on('LeftRoom', function (room: string,username:string) {
+      socket.join(room);
+
       socket.on('disconnect', () => {
-          console.log( socket.id + 'has left') ;
-      });
+        console.log( socket.id + 'has left') ;
+        socket.broadcast.to(room).emit('message',username + " has left ");
+    });
+
+  });
+      
+      // socket.on('disconnect', () => {
+      //     console.log( socket.id + 'has left') ;
+      //     socket.broadcast.to(room).emit('message',username + " has left ");
+      // });
 
   })
 

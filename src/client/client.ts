@@ -4,15 +4,12 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const username = urlParams.get('username')
 const room = urlParams.get('room');
-const date = new Date();
 
 class Client{
     
    private socket:SocketIOClient.Socket;
    constructor(){
     this.socket = io();
-    // const date = new Date();
-
     this.socket.on('connect', function () {
 
         // add the chatroom title to DOM
@@ -21,20 +18,22 @@ class Client{
             room + 
             "</span>")
 
-         if(username!= null){
-            $('#room-user').append(
-                "<div class ='friend'>"+
-                username + 
-                "</div>"
-            )
-        }
+        //  if(username!= null){
+        //     $('#room-user').append(
+        //         "<div class ='friend'>"+
+        //         username + 
+        //         "</div>"
+        //     )
+        // }
      })
 
      //sending (username & room) to server side
      this.socket.emit('joinRoom',room,username);
+     this.socket.emit('LeftRoom',room,username);
 
      // receive message from server 
      this.socket.on('message', function (message: any) {
+        const date = new Date();
         $('#chat-message-list').append( // message
             "<div id='message-row other-message' class='message-row other-message'>"+
             "<div class='message-content'>" + 
@@ -48,12 +47,12 @@ class Client{
     this.socket.on('disconnect', function (message: any) {
          console.log('disconnect ' + message)
 
-
          location.reload();
      })
 
      // receive messages from room member 
     this.socket.on('chatMessage', (chatMessage: ChatMessage) => {
+        const date = new Date();
         $('#chat-message-list').append( // message
             "<div id='message-row other-message' class='message-row other-message'>"+
             "<div class='message-content'>" + 
@@ -63,8 +62,9 @@ class Client{
         )
     })
 }
-//sending messages from you
+//sending messages from your side
 public sendMessage() {
+    const date = new Date();
     let messageText = $('#messageText').val()
     if (messageText.toString().length > 0) {
         this.socket.emit('chatMessage', <ChatMessage>{
