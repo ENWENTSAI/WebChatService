@@ -1,21 +1,26 @@
+
+//get username & room name from URL 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const username = urlParams.get('username')
+const room = urlParams.get('room');
+const date = new Date();
 
 class Client{
     
-
    private socket:SocketIOClient.Socket;
    constructor(){
     this.socket = io();
-    const date = new Date();
+    // const date = new Date();
 
-    // Get username and room from URL
-    // const { username, room } = qs.parse(location.search, {
-    // ignoreQueryPrefix: true,
-    //  });
     this.socket.on('connect', function () {
-         console.log('connect')
+
+        // add the chatroom title to DOM
+         $('#chat-title').append(
+            "<span id='roomtitle'>"+
+            room + 
+            "</span>")
+
          if(username!= null){
             $('#room-user').append(
                 "<div class ='friend'>"+
@@ -23,16 +28,31 @@ class Client{
                 "</div>"
             )
         }
-        
-
-
      })
 
+     //sending (username & room) to server side
+     this.socket.emit('joinRoom',room,username);
+
+     // receive message from server 
+     this.socket.on('message', function (message: any) {
+        $('#chat-message-list').append( // message
+            "<div id='message-row other-message' class='message-row other-message'>"+
+            "<div class='message-content'>" + 
+            "<div class='name'>" + "Bot" + "</div>" + 
+            "<div class='message-text'>" +message+"</div>"+
+            "<div class='message-time'>"+`${date.getHours()}:${date.getMinutes()}`+"</div>"+" </div> "+" </div> "
+        )
+    })
+
+    //disconnect with server side
     this.socket.on('disconnect', function (message: any) {
          console.log('disconnect ' + message)
-         //location.reload();
+
+
+         location.reload();
      })
-     // receive message from others
+
+     // receive messages from room member 
     this.socket.on('chatMessage', (chatMessage: ChatMessage) => {
         $('#chat-message-list').append( // message
             "<div id='message-row other-message' class='message-row other-message'>"+
@@ -42,15 +62,9 @@ class Client{
             "<div class='message-time'>"+`${date.getHours()}:${date.getMinutes()}`+"</div>"+" </div> "+" </div> "
         )
     })
-
 }
-
-//send messages
+//sending messages from you
 public sendMessage() {
-    const date = new Date();
-    // const queryString = window.location.search;
-    // const urlParams = new URLSearchParams(queryString);
-    // const username = urlParams.get('username')
     let messageText = $('#messageText').val()
     if (messageText.toString().length > 0) {
         this.socket.emit('chatMessage', <ChatMessage>{
@@ -63,27 +77,11 @@ public sendMessage() {
             "<div class='message-text'>" + messageText+"</div>"+
             "<div class='message-time'>"+`${date.getHours()}:${date.getMinutes()}` +"</div>"+" </div> "+" </div> "
         )
+        // clear your input value
         $('#messageText').val('')
     }
 
 }
-// public userList(){
-//     if(username!= null){
-//         $('#room-user').append(
-//             "<div class ='friend'>"+
-//             username + 
-//             "</div>"
-//         )
-//     }
-// }
-
-
-
-
-// // Add room name to DOM
-// function outputRoomName(room) {
-//     roomName.innerText = room;
-//   }
   
 //   // Add users to DOM
 //   function outputUsers(users) {
