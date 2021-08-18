@@ -11,33 +11,24 @@ class Client {
             $('#chat-title').append("<span id='roomtitle'>" +
                 room +
                 "</span>");
-            //  if(username!= null){
-            //     $('#room-user').append(
-            //         "<div class ='friend'>"+
-            //         username + 
-            //         "</div>"
-            //     )
-            // }
+            // add welcome message to DOM
+            $('#chat-message-list').append("<div class='official-text'>" + username + ", welcome to join room - " + room +
+                "</div>");
         });
-        //sending (username & room) to server side
+        //sending (username & room) value to server side for join & left function
         this.socket.emit('joinRoom', room, username);
         this.socket.emit('LeftRoom', room, username);
         // receive message from server 
         this.socket.on('message', function (message) {
-            const date = new Date();
-            $('#chat-message-list').append(// message
-            "<div id='message-row other-message' class='message-row other-message'>" +
-                "<div class='message-content'>" +
-                "<div class='name'>" + "Bot" + "</div>" +
-                "<div class='message-text'>" + message + "</div>" +
-                "<div class='message-time'>" + `${date.getHours()}:${date.getMinutes()}` + "</div>" + " </div> " + " </div> ");
+            $('#chat-message-list').append("<div class='official-text'>" + message +
+                "</div>");
         });
         //disconnect with server side
         this.socket.on('disconnect', function (message) {
             console.log('disconnect ' + message);
             location.reload();
         });
-        // receive messages from room member 
+        // receive messages from room members 
         this.socket.on('chatMessage', (chatMessage) => {
             const date = new Date();
             $('#chat-message-list').append(// message
@@ -45,7 +36,8 @@ class Client {
                 "<div class='message-content'>" +
                 "<div class='name'>" + chatMessage.from + "</div>" +
                 "<div class='message-text'>" + chatMessage.message + "</div>" +
-                "<div class='message-time'>" + `${date.getHours()}:${date.getMinutes()}` + "</div>" + " </div> " + " </div> ");
+                "<div class='message-time'>" + `${date.getHours()}:${date.getMinutes()}` +
+                "</div>" + " </div> " + " </div> ");
         });
     }
     //sending messages from your side

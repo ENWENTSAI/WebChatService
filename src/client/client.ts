@@ -1,4 +1,3 @@
-
 //get username & room name from URL 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -16,41 +15,34 @@ class Client{
          $('#chat-title').append(
             "<span id='roomtitle'>"+
             room + 
-            "</span>")
+            "</span>"
+            );
+        // add welcome message to DOM
+        $('#chat-message-list').append( 
+            "<div class='official-text'>" +username+", welcome to join room - "+room+
+            "</div>"
+            ); 
+    });
 
-        //  if(username!= null){
-        //     $('#room-user').append(
-        //         "<div class ='friend'>"+
-        //         username + 
-        //         "</div>"
-        //     )
-        // }
-     })
+    //sending (username & room) value to server side for join & left function
+    this.socket.emit('joinRoom',room,username);
+    this.socket.emit('LeftRoom',room,username);
 
-     //sending (username & room) to server side
-     this.socket.emit('joinRoom',room,username);
-     this.socket.emit('LeftRoom',room,username);
-
-     // receive message from server 
-     this.socket.on('message', function (message: any) {
-        const date = new Date();
-        $('#chat-message-list').append( // message
-            "<div id='message-row other-message' class='message-row other-message'>"+
-            "<div class='message-content'>" + 
-            "<div class='name'>" + "Bot" + "</div>" + 
-            "<div class='message-text'>" +message+"</div>"+
-            "<div class='message-time'>"+`${date.getHours()}:${date.getMinutes()}`+"</div>"+" </div> "+" </div> "
-        )
-    })
+    // receive message from server 
+    this.socket.on('message', function (message: any) {
+       $('#chat-message-list').append( 
+           "<div class='official-text'>" +message+
+           "</div>"
+           );
+    });
 
     //disconnect with server side
     this.socket.on('disconnect', function (message: any) {
-         console.log('disconnect ' + message)
+        console.log('disconnect ' + message)
+        location.reload();
+    });
 
-         location.reload();
-     })
-
-     // receive messages from room member 
+    // receive messages from room members 
     this.socket.on('chatMessage', (chatMessage: ChatMessage) => {
         const date = new Date();
         $('#chat-message-list').append( // message
@@ -58,10 +50,12 @@ class Client{
             "<div class='message-content'>" + 
             "<div class='name'>" + chatMessage.from + "</div>" + 
             "<div class='message-text'>" + chatMessage.message+"</div>"+
-            "<div class='message-time'>"+`${date.getHours()}:${date.getMinutes()}`+"</div>"+" </div> "+" </div> "
-        )
-    })
+            "<div class='message-time'>"+`${date.getHours()}:${date.getMinutes()}`+
+            "</div>"+" </div> "+" </div> "
+        );
+    });
 }
+
 //sending messages from your side
 public sendMessage() {
     const date = new Date();
@@ -70,33 +64,18 @@ public sendMessage() {
         this.socket.emit('chatMessage', <ChatMessage>{
             message: messageText,
             from: username,
-        })
+        });
         $('#chat-message-list').append(
             "<div id='message-row you-message' class='message-row you-message'>"+
             "<div class='message-content'>" + 
             "<div class='message-text'>" + messageText+"</div>"+
             "<div class='message-time'>"+`${date.getHours()}:${date.getMinutes()}` +"</div>"+" </div> "+" </div> "
-        )
+        );
         // clear your input value
-        $('#messageText').val('')
+        $('#messageText').val('');
     }
 
 }
-  
-//   // Add users to DOM
-//   function outputUsers(users) {
-//     userList.innerHTML = '';
-//     users.forEach((user) => {
-//       const li = document.createElement('li');
-//       li.innerText = user.username;
-//       userList.appendChild(li);
-//     });
-//   }
-
-
-
-
-
 }
 
 const client = new Client();

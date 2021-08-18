@@ -58,7 +58,6 @@ body{
     font-size: 25px;
 }
 
-
 #conversation-list{
     grid-area: conversation-list;
 }
@@ -103,7 +102,6 @@ body{
 
 }
 
-
 #chat-message-list{
     grid-area: chat-message-list;
     display: flex;
@@ -144,6 +142,12 @@ body{
     padding: 9px 14px;
     font-size: 1.6rem;
     margin-bottom: 5px;
+}
+.official-text{
+text-align:center;
+color: #777;
+font-size: 1.4rem;
+padding: 9px 14px;
 }
 
 .message-time{
@@ -209,7 +213,7 @@ body{
         </div>
         <div id="chat-title">
             <span></span>
-            <input type = "button" id = "leaveroom" onclick = "leaveRoom()" value = "Leave">  
+            <input type = "button" onclick = "leaveRoom()" value = "Leave">  
         </div>
         <div id="chat-message-list">
         </div>
@@ -220,14 +224,12 @@ body{
     </div>
     <script>
         function leaveRoom(){
-        document.getElementById('leaveroom').addEventListener('click', () => {
         const leaveRoom = confirm('you want to leave this chat room?');
         if (leaveRoom) {
         this.window.location = 'index.html';
         } else {
         }
-        });}
-
+    }
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js" integrity="sha512-f0AM6x08kthGzMyDHZjBgjBCPp8V8ovlHYCI1jMkhViTeX3MykGCf/DnN1khWss/6d1105eAG4TniSKy6UhZrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
 <script src="/socket.io/socket.io.js"></script>
