@@ -31,13 +31,12 @@ class Server{
         socket.join(room);
 
         //broadcast the message who joined this specific room.
-        socket.broadcast.to(room).emit('message'," Everybody, say hello to  " + username);
-
+        socket.to(room).emit('message'," Everybody, say hello to  " + username);
 
         //sending messages to this specific room. 
         socket.on('chatMessage', function (chatMessage: ChatMessage) {
           console.log('chatMessage', chatMessage);
-          socket.broadcast.to(room).emit('chatMessage', chatMessage);
+          socket.to(room).emit('chatMessage', chatMessage);
         });
       
       });
@@ -49,7 +48,7 @@ class Server{
 
         socket.on('disconnect', () => {
           console.log(socket.id + ' has left');
-          socket.broadcast.to(room).emit('message',username + " has left ");
+          socket.to(room).emit('message',username + " has left ");
         });
 
       });

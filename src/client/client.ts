@@ -17,7 +17,7 @@ class Client{
             room + 
             "</span>"
             );
-        // add welcome message to DOM
+        // send welcome message to user 
         $('#chat-message-list').append( 
             "<div class='official-text'>" +username+", welcome to join room - "+room+
             "</div>"
@@ -26,6 +26,7 @@ class Client{
 
     //sending (username & room) value to server side for join & left function
     this.socket.emit('joinRoom',room,username);
+    
     this.socket.emit('LeftRoom',room,username);
 
     // receive message from server 

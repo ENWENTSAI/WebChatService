@@ -1,9 +1,9 @@
 # WebChatService
-Web Chat Service is a simple real-time chat application that provides users to join any available rooms (AZ, BNT, moderna & MVC). 
+Web Chat Service is a simple real-time chat application that provides users to join any available rooms (AZ, BNT, Moderna & MVC). 
 
 ### Web Chat Service built with the following technologies:
 - Node.js
-- typescript 
+- TypeScript 
 - Express.js with Socket.io
 - jQuery
 - HTML/CSS

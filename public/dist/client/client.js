@@ -11,7 +11,7 @@ class Client {
             $('#chat-title').append("<span id='roomtitle'>" +
                 room +
                 "</span>");
-            // add welcome message to DOM
+            // send welcome message to user 
             $('#chat-message-list').append("<div class='official-text'>" + username + ", welcome to join room - " + room +
                 "</div>");
         });
